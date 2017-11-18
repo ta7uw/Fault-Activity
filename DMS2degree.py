@@ -2,7 +2,6 @@ import argparse
 import pandas as pd
 
 
-
 def dms2degree():
     """
     Transform DMS to degree type

@@ -3,10 +3,11 @@ from cal_strain_rate import normal_f, slip_f
 
 class Fault(object):
 
-    def __init__(self, name, length, type, displacement_speed, west_end, east_end):
+    def __init__(self, name, length, type, displacement_speed, slope=None, west_end, east_end):
         self.name = name
         self.length = length
         self.displacement_speed = displacement_speed
+        self.slope = slope
         self.west_end = west_end  # This type is Tuple
         self.east_end = east_end  # This type is Tuple
 
@@ -30,7 +31,8 @@ class Fault(object):
 
         else:
             self.strain_rate = normal_f(length=self.length,
-                                        displacement_speed=self.displacement_speed)
+                                        displacement_speed=self.displacement_speed,
+                                        slope_gradient=self.slope)
 
 
 
