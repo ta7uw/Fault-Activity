@@ -18,10 +18,10 @@ def export_strain_rate():
         f_name = df.loc[i][0]
         f_length = df.loc[i][1]
         f_type = df.loc[i][2]
-        f_dspped = df.loc[i][3]
-        f_slope = df.loc[i][4]
+        f_slope = df.loc[i][3]
+        f_dspped = df.loc[i][4]
         f_westend = (df.loc[i][5], df.loc[i][6])
-        f_eastend = (df.loc[i][6], df.loc[i][7])
+        f_eastend = (df.loc[i][7], df.loc[i][8])
 
         # Create 'Fault' object
         fault = Fault(
