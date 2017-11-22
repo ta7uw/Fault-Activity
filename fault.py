@@ -5,7 +5,7 @@ class Fault(object):
 
     def __init__(self, name, length, f_type, displacement_speed, slope=None, west_end=None, east_end=None):
         self.name = name
-        self.length = length
+        self.length = int(length)
         self.f_type = f_type
         self.displacement_speed = displacement_speed
         self.slope = slope
@@ -27,6 +27,8 @@ class Fault(object):
                 self.displacement_speed = 0.205
             else:
                 self.displacement_speed = 0.275
+        else:
+            self.displacement_speed = float(self.displacement_speed)
 
     def __str__(self):
         return self.name

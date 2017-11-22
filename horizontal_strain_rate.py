@@ -39,6 +39,8 @@ def export_strain_rate():
 
         # Display Result of calcuration
         print("Strain rate: {}".format(fault.strain_rate))
+        df["歪速度"] = fault.strain_rate
+    df.to_csv("csv/result.csv")
 
 
 if __name__ == '__main__':

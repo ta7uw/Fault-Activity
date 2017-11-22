@@ -10,8 +10,7 @@ def normal_f(length, displacement_speed, slope_gradient):
     :return: Crustal strain rate
     """
     tan = math.tan(math.pi / slope_gradient)
-    print(tan)
-    strain_rate = length * displacement_speed / tan
+    strain_rate = length * 0.001 * displacement_speed / tan
     return strain_rate
 
 
@@ -23,7 +22,7 @@ def slip_f(length, displacement_speed):
     :return: Crustal strain rate
     """
     cos = math.cos(math.pi / 4)
-    strain_rate = length * displacement_speed * cos * cos
+    strain_rate = length * 0.001 * displacement_speed * cos * cos
     return strain_rate
 
 
