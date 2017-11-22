@@ -22,6 +22,12 @@ class Fault(object):
 
         self.strain_rate = None
 
+        if self.displacement_speed == "-":
+            if self.f_type == 2:
+                self.displacement_speed = 0.205
+            else:
+                self.displacement_speed = 0.275
+
     def __str__(self):
         return self.name
 
