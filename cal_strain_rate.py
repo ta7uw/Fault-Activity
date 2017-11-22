@@ -14,6 +14,7 @@ def normal_f(length, displacement_speed, slope_gradient):
     strain_rate = length * displacement_speed / tan
     return strain_rate
 
+
 def slip_f(length, displacement_speed):
     """
     横ずれ断層の水平歪速度を求める
@@ -22,7 +23,7 @@ def slip_f(length, displacement_speed):
     :return: Crustal strain rate
     """
     cos = math.cos(math.pi / 4)
-    strain_rate = length * displacement_speed * cos ** 2
+    strain_rate = length * displacement_speed * cos * cos
     return strain_rate
 
 

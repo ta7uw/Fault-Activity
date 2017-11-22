@@ -10,11 +10,12 @@ def export_strain_rate():
     args = parser.parse_args()
 
     # Read CSV file
-    df = pd.read_csv(args.csvfile_path)
+    df = pd.read_csv(args.csv)
 
     # Count length of data
     data_size = df.shape[0]
-    for i in data_size:
+
+    for i in range(data_size):
         f_name = df.loc[i][0]
         f_length = df.loc[i][1]
         f_type = df.loc[i][2]
@@ -27,7 +28,7 @@ def export_strain_rate():
         fault = Fault(
             name=f_name,
             length=f_length,
-            type=f_type,
+            f_type=f_type,
             displacement_speed=f_dspped,
             slope=f_slope,
             west_end=f_westend,

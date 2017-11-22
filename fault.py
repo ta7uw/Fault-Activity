@@ -3,21 +3,22 @@ from cal_strain_rate import normal_f, slip_f
 
 class Fault(object):
 
-    def __init__(self, name, length, type, displacement_speed, slope=None, west_end, east_end):
+    def __init__(self, name, length, f_type, displacement_speed, slope=None, west_end=None, east_end=None):
         self.name = name
         self.length = length
+        self.f_type = f_type
         self.displacement_speed = displacement_speed
         self.slope = slope
         self.west_end = west_end  # This type is Tuple
         self.east_end = east_end  # This type is Tuple
 
         # Check fault type
-        if type == "正":
-            self.type = 0
-        elif type == "逆":
-            self.type = 1
+        if self.f_type == "正":
+            self.f_type = 0
+        elif self.f_type == "逆":
+            self.f_type = 1
         else:
-            self.type = 2
+            self.f_type = 2
 
         self.strain_rate = None
 
@@ -25,7 +26,7 @@ class Fault(object):
         return self.name
 
     def add_strain_rate(self):
-        if self.type == 2:
+        if self.f_type == 2:
             self.strain_rate = slip_f(length=self.length,
                                       displacement_speed=self.displacement_speed)
 
