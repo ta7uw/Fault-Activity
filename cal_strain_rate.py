@@ -11,7 +11,7 @@ def normal_f(length, displacement_speed, slope_gradient):
     """
     tan = math.tan(math.pi / slope_gradient)
     strain_rate = length * 0.001 * displacement_speed / tan
-    return strain_rate
+    return round(strain_rate, 4)
 
 
 def slip_f(length, displacement_speed):
@@ -23,6 +23,6 @@ def slip_f(length, displacement_speed):
     """
     cos = math.cos(math.pi / 4)
     strain_rate = length * 0.001 * displacement_speed * cos * cos
-    return strain_rate
+    return round(strain_rate, 3)
 
 
