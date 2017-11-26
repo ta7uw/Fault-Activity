@@ -1,4 +1,3 @@
-from cal_strain_rate import normal_f, slip_f
 
 
 class Fault(object):
@@ -33,15 +32,6 @@ class Fault(object):
     def __str__(self):
         return self.name
 
-    def add_strain_rate(self):
-        if self.f_type == 2:
-            self.strain_rate = slip_f(length=self.length,
-                                      displacement_speed=self.displacement_speed)
-
-        else:
-            self.strain_rate = normal_f(length=self.length,
-                                        displacement_speed=self.displacement_speed,
-                                        slope_gradient=self.slope)
 
 
 
