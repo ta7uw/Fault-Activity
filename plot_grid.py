@@ -19,10 +19,8 @@ def plot_grid():
 
             center_point = [lon, lat]
             bbox = [lon - LON_DEGREE/2, lat - LAT_DEGREE/2, lon + LON_DEGREE/2, lat + LAT_DEGREE/2]
-
             grid_data = [center_point, bbox]
             grid_data = pd.Series(grid_data, index=grid2SHIKOKU.columns)
-
             grid2SHIKOKU = grid2SHIKOKU.append(grid_data, ignore_index=True)
 
     grid2KYUSYU = pd.DataFrame(index=[], columns=["center-point", "bbox"])
@@ -32,11 +30,12 @@ def plot_grid():
 
             center_point = lon, lat
             bbox = (lon - LON_DEGREE / 2, lat - LAT_DEGREE / 2, lon + LON_DEGREE / 2, lat + LAT_DEGREE / 2)
-
             grid_data = [center_point, bbox]
             grid_data = pd.Series(grid_data, index=grid2SHIKOKU.columns)
-
             grid2KYUSYU = grid2KYUSYU.append(grid_data, ignore_index=True)
+
+    grid2KYUSYU.to_csv("csv/grid-KYUSYU.csv")
+    grid2SHIKOKU.to_csv("csv/grid-SHIKOKU.csv")
 
 if __name__ == '__main__':
     plot_grid()
