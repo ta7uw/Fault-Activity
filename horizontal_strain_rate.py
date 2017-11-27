@@ -1,6 +1,7 @@
 import pandas as pd
-from fault import Fault
 import argparse
+from fault import Fault
+from grid import Grid
 
 
 def export_strain_rate():
