@@ -18,10 +18,11 @@ class Grid(object):
         # bounding box is expressed as [xmin, ymin, xmax, ymax]
         self.bbox = bbox
         # Create polygon by using this bounding box
-        self.poly = Polygon([(self.bbox[0], self.bbox[1]),
-                             (self.bbox[0], self.bbox[3]),
-                             (self.bbox[2], self.bbox[1],
-                              self.bbox[2], self.bbox[3])])
+        self.poly = Polygon((self.bbox[0], self.bbox[1]),  # (xmin, ymin)
+                            (self.bbox[2], self.bbox[1]),  # (xmax, ymin)
+                            (self.bbox[2], self.bbox[3]),  # (xmax, ymax)
+                            (self.bbox[0], self.bbox[3]))  # (xmin, ymax)
+
         # Faults are included in this grid
         self.include_fault = []
         # Length of faults included in this grid
@@ -39,7 +40,7 @@ class Grid(object):
         """
         # Extact elements from the fault object
         fault_westend = fault.west_end
-        fault_eastend = fault.eastend
+        fault_eastend = fault.east_end
         fault_length = fault.length
 
         # Create geometry Point and Segment class object
@@ -49,19 +50,23 @@ class Grid(object):
 
         # Check whether the fault is completely included in this grid
         if self.poly.encloses_point(westend) and self.poly.encloses_point(eastend):
+            print("A")
             self.include_fault.append(fault)
             self.f_length.append(fault_length)
             return True
 
         # Check whether the fault crosses one line of this grid
-        elif (self.poly.encloses_point(westend) is True and self.poly.encloses_point(eastend) is False) or \
-                (self.poly.encloses_point(westend) is False and self.poly.encloses_point(eastend) is True):
+        elif len(self.poly.intersection(line)) == 1:
+            print("B")
             self.include_fault.append(fault)
 
             # westend is included
             if self.poly.encloses_point(westend):
                 grid_intersection = self.poly.intersection(line)
-                margin = westend - grid_intersection
+                margin_x = eastend[0] - grid_intersection[0].x
+                margin_y = eastend[1] - grid_intersection[0].y
+                margin = margin_x, margin_y
+                print(margin)
                 margin_lon = margin[0]
                 margin_lat = margin[1]
                 margin_x = margin_lon * km_per_lon
@@ -72,7 +77,10 @@ class Grid(object):
             # eastend is included
             else:
                 grid_intersection = self.poly.intersection(line)
-                margin = eastend - grid_intersection
+                margin_x = eastend[0] - grid_intersection[0].x
+                margin_y = eastend[1] - grid_intersection[0].y
+                margin = margin_x, margin_y
+                print(margin)
                 margin_lon = margin[0]
                 margin_lat = margin[1]
                 margin_x = margin_lon * km_per_lon
@@ -83,12 +91,13 @@ class Grid(object):
                 return True
 
         # Check whether the fault crosses two lines of this grid
-        elif len(self.poly.intersection(line)) > 1:
+        elif len(self.poly.intersection(line)) == 2:
+            print("C")
             self.include_fault.append(fault)
-            grid_intersection = self.poly.intersection(line)[0]
-            intersection_1 = grid_intersection[0]
-            intersection_2 = grid_intersection[1]
-            margin = intersection_1 - intersection_2
+            grid_intersection = [intersection for intersection in self.poly.intersection(line)]
+            intersection_1 = [grid_intersection[0].x, grid_intersection[0].y]
+            intersection_2 = [grid_intersection[1].x, grid_intersection[1].y]
+            margin = [a - b for a, b in zip(intersection_1, intersection_2)]
             margin_lon = margin[0]
             margin_lat = margin[1]
             margin_x = margin_lon * km_per_lon
@@ -120,6 +129,7 @@ class Grid(object):
                 self.strain_rate += normal_f(length=f_length,
                                              displacement_speed=displacement_speed,
                                              slope_gradient=slope)
+
             return self.strain_rate
 
 
