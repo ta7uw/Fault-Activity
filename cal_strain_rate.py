@@ -3,7 +3,7 @@ import math
 
 def normal_f(length, displacement_speed, slope_gradient):
     """
-    正断層及び逆断層の水平歪速度を求める
+    Calculatate horizontal strain rate of normal fault and reverse fault
     :param length: Lenghth of fault
     :param displacement_speed: Displacement speed of fault
     :param slope_gradient: Slope gradeint of fault
@@ -20,7 +20,7 @@ def normal_f(length, displacement_speed, slope_gradient):
 
 def slip_f(length, displacement_speed):
     """
-    横ずれ断層の水平歪速度を求める
+    Calcultate horizontal strain rate of strike slip fault
     :param length: Lenghth of fault
     :param displacement_speed: Displacement speed of fault
     :return: Crustal strain rate

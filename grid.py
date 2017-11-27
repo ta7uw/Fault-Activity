@@ -1,25 +1,48 @@
 from cal_strain_rate import normal_f, slip_f
 from sympy.geometry import Point, Polygon, Segment
+import math
+
+
+km_per_lon = 93.45286
+km_per_lat = 111.263
 
 
 class Grid(object):
+    """
+    This is Grid for calculating　horizontal strain rate
+    """
 
     def __init__(self, center_point, bbox):
+        # center point of this grid
         self.center_poinst = center_point
-        self.bbox = bbox  # [xmin, ymin, xmax, ymax]
+        # bounding box is expressed as [xmin, ymin, xmax, ymax]
+        self.bbox = bbox
+        # Create polygon by using this bounding box
         self.poly = Polygon([(self.bbox[0], self.bbox[1]),
                              (self.bbox[0], self.bbox[3]),
                              (self.bbox[2], self.bbox[1],
-                              self.bbox[2],self.bbox[3])])
+                              self.bbox[2], self.bbox[3])])
+        # Faults are included in this grid
         self.include_fault = []
-        self.f_length = None
-        self.strain_rate = None
+        # Length of faults included in this grid
+        self.f_length = []
+        # horizontal strain rate in this grid
+        self.strain_rate = 0
 
     def check_contain_fault(self, fault):
+        """
+        This method is for checking whether faults is included in the grid
+        :param fault: fault is a "Fault" class object
+        :return: True or False
+                    True is that faults is included in the grid
+                    False is that faults is not included in the grid
+        """
+        # Extact elements from the fault object
         fault_westend = fault.west_end
         fault_eastend = fault.eastend
         fault_length = fault.length
 
+        # Create geometry Point and Segment class object
         westend = Point(fault_westend)
         eastend = Point(fault_eastend)
         line = Segment(westend, eastend)
@@ -31,25 +54,47 @@ class Grid(object):
             return True
 
         # Check whether the fault crosses one line of this grid
-        elif (self.poly.encloses_point(westend)==True and self.poly.encloses_point(eastend)==False) or \
-                (self.poly.encloses_point(westend)==False and self.poly.encloses_point(eastend)==True):
+        elif (self.poly.encloses_point(westend) is True and self.poly.encloses_point(eastend) is False) or \
+                (self.poly.encloses_point(westend) is False and self.poly.encloses_point(eastend) is True):
             self.include_fault.append(fault)
 
             # westend is included
             if self.poly.encloses_point(westend):
                 grid_intersection = self.poly.intersection(line)
-                print(grid_intersection)
+                margin = westend - grid_intersection
+                margin_lon = margin[0]
+                margin_lat = margin[1]
+                margin_x = margin_lon * km_per_lon
+                margin_y = margin_lat * km_per_lat
+                length = math.sqrt(margin_x**2 + margin_y**2)
+                self.f_length.append(length)
                 return True
-
+            # eastend is included
             else:
                 grid_intersection = self.poly.intersection(line)
-                print(grid_intersection)
+                margin = eastend - grid_intersection
+                margin_lon = margin[0]
+                margin_lat = margin[1]
+                margin_x = margin_lon * km_per_lon
+                margin_y = margin_lat * km_per_lat
+                length = math.sqrt(margin_x ** 2 + margin_y ** 2)
+                self.f_length.append(length)
+
                 return True
 
         # Check whether the fault crosses two lines of this grid
         elif len(self.poly.intersection(line)) > 1:
-            print(self.poly.intersection(line))
             self.include_fault.append(fault)
+            grid_intersection = self.poly.intersection(line)[0]
+            intersection_1 = grid_intersection[0]
+            intersection_2 = grid_intersection[1]
+            margin = intersection_1 - intersection_2
+            margin_lon = margin[0]
+            margin_lat = margin[1]
+            margin_x = margin_lon * km_per_lon
+            margin_y = margin_lat * km_per_lat
+            length = math.sqrt(margin_x ** 2 + margin_y ** 2)
+            self.f_length.append(length)
             return True
 
         # Fault is not included
@@ -57,6 +102,11 @@ class Grid(object):
             return False
 
     def add_strain_rate(self):
+        """
+        Calcultate horizontal strain rate of each fault is included in this grid, and
+        Add strain rate to this grid
+        :return:
+        """
 
         for fault, f_length in zip(self.include_fault, self.f_length):
             displacement_speed = fault.displacement_speed
