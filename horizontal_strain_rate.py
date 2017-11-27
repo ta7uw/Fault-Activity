@@ -35,13 +35,11 @@ def export_strain_rate():
             west_end=f_westend,
             east_end=f_eastend,
         )
-        # Calcurate horizontal strain rate from fault object data
-        fault.add_strain_rate()
 
         # Display Result of calcuration
         print("Strain rate: {}".format(fault.strain_rate))
         df["歪速度"] = fault.strain_rate
-    df.to_csv("csv/result.csv")
+    df.to_csv("csv/result.csv", encoding="utf-8")
 
 
 if __name__ == '__main__':
