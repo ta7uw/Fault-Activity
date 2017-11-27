@@ -8,15 +8,15 @@ class Fault(object):
         self.f_type = f_type
         self.displacement_speed = displacement_speed
         self.slope = slope
-        west_end_lat = west_end.split(".")[0]
-        west_end_lon = west_end.split(".")[1]
+        west_end_lat = west_end[1].split(".")
+        west_end_lon = west_end[0].split(".")
         west_end_lat = int(west_end_lat[0]) + int(west_end_lat[1]) / 60 + int(west_end_lat[2]) / 3600
         west_end_lon = int(west_end_lon[0]) + int(west_end_lon[1]) / 60 + int(west_end_lon[2]) / 3600
 
         self.west_end = west_end_lon, west_end_lat  # This type is Tuple
 
-        east_end_lat = east_end.split(".")[0]
-        east_end_lon = east_end.split(".")[1]
+        east_end_lat = east_end[1].split(".")
+        east_end_lon = east_end[0].split(".")
         east_end_lat = int(east_end_lat[0]) + int(east_end_lat[1]) / 60 + int(east_end_lat[2]) / 3600
         east_end_lon = int(east_end_lon[0]) + int(east_end_lon[1]) / 60 + int(east_end_lon[2]) / 3600
 
