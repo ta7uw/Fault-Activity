@@ -34,9 +34,9 @@ class Fault(object):
 
         if self.displacement_speed == "-":
             if self.f_type == 2:
-                self.displacement_speed = 0.205
+                self.displacement_speed = 0.255
             else:
-                self.displacement_speed = 0.275
+                self.displacement_speed = 0.30
         else:
             self.displacement_speed = float(self.displacement_speed)
 
