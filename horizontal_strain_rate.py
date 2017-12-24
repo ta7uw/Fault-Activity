@@ -40,17 +40,17 @@ def export_strain_rate():
         faults.append(fault)
 
     count = 0
-    grid_shikoku_df = pd.read_csv("csv/grid-SHIKOKU.csv")
+    grid_chugoku_df = pd.read_csv("csv/grid-CHUGOKU.csv")
     # Count length of data
-    shikoku_data_size = grid_shikoku_df.shape[0]
-    shikoku_strain_rate_list = []
-    for i in range(shikoku_data_size):
-        center_lon = grid_shikoku_df.loc[i][1]
-        center_lat = grid_shikoku_df.loc[i][2]
-        xmin = grid_shikoku_df.loc[i][3]
-        ymin = grid_shikoku_df.loc[i][4]
-        xmax = grid_shikoku_df.loc[i][5]
-        ymax = grid_shikoku_df.loc[i][6]
+    chugoku_data_size = grid_chugoku_df.shape[0]
+    chugoku_strain_rate_list = []
+    for i in range(chugoku_data_size):
+        center_lon = grid_chugoku_df.loc[i][1]
+        center_lat = grid_chugoku_df.loc[i][2]
+        xmin = grid_chugoku_df.loc[i][3]
+        ymin = grid_chugoku_df.loc[i][4]
+        xmax = grid_chugoku_df.loc[i][5]
+        ymax = grid_chugoku_df.loc[i][6]
 
         count += 1
         print(count)
@@ -65,10 +65,10 @@ def export_strain_rate():
                 print(fault.name)
                 grid.add_strain_rate()
         print(grid.strain_rate)
-        shikoku_strain_rate_list.append(grid.strain_rate)
+        chugoku_strain_rate_list.append(grid.strain_rate)
 
-    shikoku_s = pd.Series(data=shikoku_strain_rate_list)
-    grid_shikoku_df["strain-rate"] = shikoku_s
+    chugoku_s = pd.Series(data=chugoku_strain_rate_list)
+    grid_chugoku_df["strain-rate"] = chugoku_s
 
     print("--------------------------------------------------------")
 
@@ -102,7 +102,7 @@ def export_strain_rate():
 
     df.to_csv("csv/result.csv", encoding="utf-8")
     grid_kyusyu_df.to_csv("csv/result-kyusyu.csv", encoding="utf-8")
-    grid_shikoku_df.to_csv("csv/resutl-shikoku.csv", encoding="utf-8")
+    grid_chugoku_df.to_csv("csv/resutl-shikoku.csv", encoding="utf-8")
 
 
 if __name__ == '__main__':
