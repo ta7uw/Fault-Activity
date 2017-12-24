@@ -50,14 +50,12 @@ class Grid(object):
 
         # Check whether the fault is completely included in this grid
         if self.poly.encloses_point(westend) and self.poly.encloses_point(eastend):
-            print("A")
             self.include_fault.append(fault)
             self.f_length.append(fault_length)
             return True
 
         # Check whether the fault crosses one line of this grid
         elif len(self.poly.intersection(line)) == 1:
-            print("B")
             self.include_fault.append(fault)
 
             # westend is included
@@ -66,7 +64,6 @@ class Grid(object):
                 margin_x = eastend[0] - grid_intersection[0].x
                 margin_y = eastend[1] - grid_intersection[0].y
                 margin = margin_x, margin_y
-                print(margin)
                 margin_lon = margin[0]
                 margin_lat = margin[1]
                 margin_x = margin_lon * km_per_lon
@@ -80,7 +77,6 @@ class Grid(object):
                 margin_x = eastend[0] - grid_intersection[0].x
                 margin_y = eastend[1] - grid_intersection[0].y
                 margin = margin_x, margin_y
-                print(margin)
                 margin_lon = margin[0]
                 margin_lat = margin[1]
                 margin_x = margin_lon * km_per_lon
@@ -92,7 +88,6 @@ class Grid(object):
 
         # Check whether the fault crosses two lines of this grid
         elif len(self.poly.intersection(line)) == 2:
-            print("C")
             self.include_fault.append(fault)
             grid_intersection = [intersection for intersection in self.poly.intersection(line)]
             intersection_1 = [grid_intersection[0].x, grid_intersection[0].y]

@@ -102,7 +102,7 @@ def export_strain_rate():
 
     df.to_csv("csv/result.csv", encoding="utf-8")
     grid_kyusyu_df.to_csv("csv/result-kyusyu.csv", encoding="utf-8")
-    grid_chugoku_df.to_csv("csv/resutl-shikoku.csv", encoding="utf-8")
+    grid_chugoku_df.to_csv("csv/resutl-chugoku.csv", encoding="utf-8")
 
 
 if __name__ == '__main__':
