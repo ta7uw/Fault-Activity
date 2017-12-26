@@ -40,7 +40,7 @@ def export_strain_rate():
         faults.append(fault)
 
     count = 0
-    grid_chugoku_df = pd.read_csv("csv/grid-CHUGOKU.csv")
+    grid_chugoku_df = pd.read_csv("csv/grid-CHUGOKU-per10km.csv")
     # Count length of data
     chugoku_data_size = grid_chugoku_df.shape[0]
     chugoku_strain_rate_list = []
@@ -72,7 +72,7 @@ def export_strain_rate():
 
     print("--------------------------------------------------------")
 
-    grid_kyusyu_df = pd.read_csv("csv/grid-KYUSYU.csv")
+    grid_kyusyu_df = pd.read_csv("csv/grid-KYUSYU-per10km.csv")
     # Count length of data
     kyusyu_data_size = grid_kyusyu_df.shape[0]
     kyusyu_strain_rate_list = []
