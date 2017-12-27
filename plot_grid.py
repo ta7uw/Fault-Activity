@@ -35,7 +35,7 @@ def plot_grid():
             grid_data = pd.Series(grid_data, index=grid2SHIKOKU.columns)
             grid2KYUSYU = grid2KYUSYU.append(grid_data, ignore_index=True)
 
-    grid2KYUSYU.to_csv("csv/grid-KYUSYUper10km.csv", encoding="utf-8")
+    grid2KYUSYU.to_csv("csv/grid-KYUSYU-per10km.csv", encoding="utf-8")
     grid2SHIKOKU.to_csv("csv/grid-CHUGOKU-per10km.csv",  encoding="utf-8")
 
 if __name__ == '__main__':

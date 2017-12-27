@@ -69,6 +69,7 @@ def export_strain_rate():
 
     chugoku_s = pd.Series(data=chugoku_strain_rate_list)
     grid_chugoku_df["strain-rate"] = chugoku_s
+    grid_chugoku_df.to_csv("csv/result-chugoku-per10km.csv", encoding="utf-8")
 
     print("--------------------------------------------------------")
 
@@ -100,9 +101,9 @@ def export_strain_rate():
     kyusyu_s = pd.Series(data=kyusyu_strain_rate_list)
     grid_kyusyu_df["strain-rate"] = kyusyu_s
 
-    df.to_csv("csv/result.csv", encoding="utf-8")
-    grid_kyusyu_df.to_csv("csv/result-kyusyu.csv", encoding="utf-8")
-    grid_chugoku_df.to_csv("csv/result-chugoku.csv", encoding="utf-8")
+    grid_kyusyu_df.to_csv("csv/result-kyusyu-per10km.csv", encoding="utf-8")
+
+    df.to_csv("csv/result-per10km.csv", encoding="utf-8")
 
 
 if __name__ == '__main__':
