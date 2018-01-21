@@ -112,10 +112,14 @@ class Grid(object):
         :return:
         """
 
-        for fault, f_length in zip(self.include_fault, self.f_length):
+        print(self.f_length)
+
+        for (fault, f_length) in zip(self.include_fault, self.f_length):
             displacement_speed = fault.displacement_speed
             slope = fault.slope
             f_type = fault.f_type
+            print(str(f_length) + "--" + str(displacement_speed))
+
             if f_type == 2:
                 self.strain_rate += slip_f(length=f_length,
                                            displacement_speed=displacement_speed)
@@ -125,7 +129,7 @@ class Grid(object):
                                              displacement_speed=displacement_speed,
                                              slope_gradient=slope)
 
-            return self.strain_rate
+        return self.strain_rate
 
 
 

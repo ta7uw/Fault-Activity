@@ -9,8 +9,8 @@ def plot_grid():
     CHUGOKU_BOX = [130.7, 33.7, 135.0, 35.7]
 
     # degree per 20 km -> 10 km
-    LON_DEGREE = 10 / 93.45286  # 20 / 93.45286
-    LAT_DEGREE = 10 / 111.263  # 10 / 111.263
+    LON_DEGREE = 20 / 93.45286  # 20 / 93.45286
+    LAT_DEGREE = 20 / 111.263  # 20 / 111.263
 
     grid2SHIKOKU = pd.DataFrame(index=[], columns=["center-lon", "center-lat", "xmin", "ymin", "xmax", "ymax"])
     for lon in np.arange(start=CHUGOKU_BOX[0], stop=CHUGOKU_BOX[2], step=LON_DEGREE, dtype=float):

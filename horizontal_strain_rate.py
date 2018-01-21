@@ -23,7 +23,7 @@ def export_strain_rate():
         f_length = df.loc[i][1]
         f_type = df.loc[i][2]
         f_slope = df.loc[i][3]
-        f_dspped = df.loc[i][4]
+        f_dspped = df.loc[i][5]
         f_westend = df.loc[i][7], df.loc[i][6]
         f_eastend = df.loc[i][9], df.loc[i][8]
 
@@ -40,7 +40,7 @@ def export_strain_rate():
         faults.append(fault)
 
     count = 0
-    grid_chugoku_df = pd.read_csv("csv/grid-CHUGOKU-per10km.csv")
+    grid_chugoku_df = pd.read_csv("csv/grid-CHUGOKU.csv")
     # Count length of data
     chugoku_data_size = grid_chugoku_df.shape[0]
     chugoku_strain_rate_list = []
@@ -61,19 +61,18 @@ def export_strain_rate():
 
         for fault in faults:
             if grid.check_contain_fault(fault):
-                print("fault is included")
-                print(fault.name)
-                grid.add_strain_rate()
+                print("fault is included---" + fault.name)
+        grid.add_strain_rate()
         print(grid.strain_rate)
         chugoku_strain_rate_list.append(grid.strain_rate)
 
     chugoku_s = pd.Series(data=chugoku_strain_rate_list)
     grid_chugoku_df["strain-rate"] = chugoku_s
-    grid_chugoku_df.to_csv("csv/result-chugoku-per10km.csv", encoding="utf-8")
+    grid_chugoku_df.to_csv("csv/result-chugoku-0121.csv", encoding="utf-8")
 
     print("--------------------------------------------------------")
 
-    grid_kyusyu_df = pd.read_csv("csv/grid-KYUSYU-per10km.csv")
+    grid_kyusyu_df = pd.read_csv("csv/grid-KYUSYU.csv")
     # Count length of data
     kyusyu_data_size = grid_kyusyu_df.shape[0]
     kyusyu_strain_rate_list = []
@@ -94,16 +93,14 @@ def export_strain_rate():
 
         for fault in faults:
             if grid.check_contain_fault(fault):
-                print("fault is included")
-                grid.add_strain_rate()
+                print("fault is included---" + fault.name)
+        grid.add_strain_rate()
         print(grid.strain_rate)
         kyusyu_strain_rate_list.append(grid.strain_rate)
     kyusyu_s = pd.Series(data=kyusyu_strain_rate_list)
     grid_kyusyu_df["strain-rate"] = kyusyu_s
 
-    grid_kyusyu_df.to_csv("csv/result-kyusyu-per10km.csv", encoding="utf-8")
-
-    df.to_csv("csv/result-per10km.csv", encoding="utf-8")
+    grid_kyusyu_df.to_csv("csv/result-kyusyu-0121.csv", encoding="utf-8")
 
 
 if __name__ == '__main__':
