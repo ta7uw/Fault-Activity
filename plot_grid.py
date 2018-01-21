@@ -5,7 +5,7 @@ import pandas as pd
 def plot_grid():
 
     # xmin, ymin , xmax, ymax
-    KYUSYU_BOX = [129.0, 31.0, 132.0, 34.0]
+    KYUSYU_BOX = [129.0, 31.0, 132.0, 35.0]
     CHUGOKU_BOX = [130.7, 33.7, 135.0, 35.7]
 
     # degree per 20 km -> 10 km
@@ -35,8 +35,8 @@ def plot_grid():
             grid_data = pd.Series(grid_data, index=grid2SHIKOKU.columns)
             grid2KYUSYU = grid2KYUSYU.append(grid_data, ignore_index=True)
 
-    grid2KYUSYU.to_csv("csv/grid-KYUSYU-per10km.csv", encoding="utf-8")
-    grid2SHIKOKU.to_csv("csv/grid-CHUGOKU-per10km.csv",  encoding="utf-8")
+    grid2KYUSYU.to_csv("csv/grid-KYUSYU.csv", encoding="utf-8")
+    grid2SHIKOKU.to_csv("csv/grid-CHUGOKU.csv",  encoding="utf-8")
 
 if __name__ == '__main__':
     plot_grid()
