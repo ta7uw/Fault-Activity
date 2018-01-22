@@ -40,35 +40,35 @@ def export_strain_rate():
         faults.append(fault)
 
     count = 0
-    grid_chugoku_df = pd.read_csv("csv/grid-CHUGOKU.csv")
-    # Count length of data
-    chugoku_data_size = grid_chugoku_df.shape[0]
-    chugoku_strain_rate_list = []
-    for i in range(chugoku_data_size):
-        center_lon = grid_chugoku_df.loc[i][1]
-        center_lat = grid_chugoku_df.loc[i][2]
-        xmin = grid_chugoku_df.loc[i][3]
-        ymin = grid_chugoku_df.loc[i][4]
-        xmax = grid_chugoku_df.loc[i][5]
-        ymax = grid_chugoku_df.loc[i][6]
-
-        count += 1
-        print(count)
-        grid = Grid(
-            center_point=[center_lon, center_lat],
-            bbox=[xmin, ymin, xmax, ymax]
-        )
-
-        for fault in faults:
-            if grid.check_contain_fault(fault):
-                print("fault is included---" + fault.name)
-        grid.add_strain_rate()
-        print(grid.strain_rate)
-        chugoku_strain_rate_list.append(grid.strain_rate)
-
-    chugoku_s = pd.Series(data=chugoku_strain_rate_list)
-    grid_chugoku_df["strain-rate"] = chugoku_s
-    grid_chugoku_df.to_csv("csv/result-chugoku-0121.csv", encoding="utf-8")
+    # grid_chugoku_df = pd.read_csv("csv/grid-CHUGOKU.csv")
+    # # Count length of data
+    # chugoku_data_size = grid_chugoku_df.shape[0]
+    # chugoku_strain_rate_list = []
+    # for i in range(chugoku_data_size):
+    #     center_lon = grid_chugoku_df.loc[i][1]
+    #     center_lat = grid_chugoku_df.loc[i][2]
+    #     xmin = grid_chugoku_df.loc[i][3]
+    #     ymin = grid_chugoku_df.loc[i][4]
+    #     xmax = grid_chugoku_df.loc[i][5]
+    #     ymax = grid_chugoku_df.loc[i][6]
+    #
+    #     count += 1
+    #     print(count)
+    #     grid = Grid(
+    #         center_point=[center_lon, center_lat],
+    #         bbox=[xmin, ymin, xmax, ymax]
+    #     )
+    #
+    #     for fault in faults:
+    #         if grid.check_contain_fault(fault):
+    #             print("fault is included---" + fault.name)
+    #     grid.add_strain_rate()
+    #     print(grid.strain_rate)
+    #     chugoku_strain_rate_list.append(grid.strain_rate)
+    #
+    # chugoku_s = pd.Series(data=chugoku_strain_rate_list)
+    # grid_chugoku_df["strain-rate"] = chugoku_s
+    # grid_chugoku_df.to_csv("csv/result-chugoku-0121.csv", encoding="utf-8")
 
     print("--------------------------------------------------------")
 
