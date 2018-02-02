@@ -30,8 +30,8 @@ def dms2degree_epicenter():
         lat = int(lat_1[0]) + int(lat_2[0])/60 + int(lat_3[0])/3600
         lon = int(lon_1[0]) + int(lon_2[0])/60 + int(lon_3[0])/3600
 
-        df["lat"] = lat
-        df["lon"] = lon
+        df.loc[i]["lat"] = lat
+        df.loc[i]["lon"] = lon
     f_name = "csv/dms2" + args.csv.split("/")[1]
     df.to_csv(f_name)
 
