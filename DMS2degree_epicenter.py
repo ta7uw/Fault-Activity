@@ -25,8 +25,9 @@ def dms2degree_epicenter():
         lat_3 = df.loc[i][4].split("'")[0]
         lon_3 = df.loc[i][3].split("'")[0]
 
-        lat = int(lat_1[0]) + int(lat_2[1])/60 + int(lat_3[2])/3600
-        lon = int(lon_1[0]) + int(lon_2[1])/60 + int(lon_3[2])/3600
+        lat = int(lat_1[0]) + int(lat_2[0])/60 + int(lat_3[0])/3600
+        lon = int(lon_1[0]) + int(lon_2[0])/60 + int(lon_3[0])/3600
+        print(lon)
 
         df.loc[i][3] = lat
         df.loc[i][4] = lon
