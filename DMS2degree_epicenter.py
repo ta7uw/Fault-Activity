@@ -18,8 +18,8 @@ def dms2degree_epicenter():
     df.assign(lon=0)
 
     for i in range(0, data_size):
-        lat_1 = df.loc[i][4].split("°")
-        lon_1 = df.loc[i][3].split("°")
+        lat_1 = df.loc[i][3].split("°")
+        lon_1 = df.loc[i][4].split("°")
 
         lat_2 = lat_1[1].split(".")
         lon_2 = lon_1[1].split(".")
