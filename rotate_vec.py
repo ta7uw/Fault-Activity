@@ -52,15 +52,15 @@ def main():
         p1 = np.array(west_point - center_point)
         p2 = np.array(east_point - center_point)
 
-        degs = {"正": 0, "逆": 90, "左横ずれ": -45, "右横ずれ": -135}
+        degs = {"正": 0, "逆": 90, "左横ずれ": 45, "右横ずれ": 135}
 
         if fault_type in degs.keys():
 
             number += 1
             deg = degs[fault_type]
             rm = rotate(deg)
-            p1 = p1.dot(rm)
-            p2 = p2.dot(rm)
+            p1 = rm.dot(p1)
+            p2 = rm.dot(p2)
 
             gradient = p1[1] / p1[0]
             length = 0.1
@@ -79,14 +79,11 @@ def main():
             wkt = f"LINESTRING({west_point[0]} {west_point[1]}, {east_point[0]} {east_point[1]})"
             text = str(number) + ";" + wkt + ";\n"
             print(text)
-            file = open("text/vec4.txt", "a+")
+            file = open("text/vec5.txt", "a+")
             file.writelines(text)
             file.close()
         else:
             continue
-
-
-
 
 
 if __name__ == '__main__':
